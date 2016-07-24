@@ -1,28 +1,36 @@
+# rock-paper-scissors by Dono27
+# Bence László
+# www.bencelaszlo.cf
 import random
 oppo = ['rock', 'paper', 'scissors']
-i,win,x=0,0,0
-while(i<3):
-    print('Round',i+1)
-    user_input = str(input('rock, paper or scissors? '))
-    cpu_choise=oppo[random.randint(0,2)]
-    if(user_input=='rock' and cpu_choise=='scissors') or (user_input=='paper' and cpu_choise=='rock') or (user_input=='scissors' and cpu_choise=='papír'):
+round_counter,user_win,oppo_win,draw_score=0,0,0,0
+#gameplay section
+while(round_counter<3):
+    print('Round',round_counter+1)
+    user_input = str(input('Rock, paper or scissors? '))
+    oppo_choise=oppo[random.randint(0,2)]
+    if(user_input=='rock' and oppo_choise=='scissors') or (user_input=='paper' and oppo_choise=='rock') or (user_input=='scissors' and oppo_choise=='papír'):
         print('You win!')
-        win+=1
-    elif(user_input==cpu_choise):
-        print('You lose!')
-        x+=1
+        user_win+=1
+    elif(user_input==oppo_choise):
+        print("""It's a draw!""")
+        draw_score+=1
     else:
         print('You lose!')
-    i+=1
-if(win>1) or (win==1 and x>1):
+        oppo_win+=1
+    round_counter+=1
+#results section
+user_score=user_win*3+draw_score
+oppo_score=oppo_win*3+draw_score
+if(user_score>oppo_score):
     print("""
 You're the winner!
 """)
-elif(x==3) or (x==1 and win==1):
+elif(user_score==oppo_score):
     print("""
     It's a draw.
     """)
-else:
+elif(oppo_score>user_score):
     print("""
 You're loser!
 """)
