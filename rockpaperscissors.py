@@ -3,8 +3,6 @@
 # www.bencelaszlo.cf
 from random import *
 from tkinter import *
-oppo = ['rock', 'paper', 'scissors']
-turn_counter,user_win,oppo_win=0,0,0
 
 #choice section
 def user_choice_rock():
@@ -17,49 +15,43 @@ def user_choice_scissors():
     user_choice = "scissors"
     turn(user_choice)
 
-#gameplay section
+#gameplay setion
 def turn(user_choice):
-    if(turn_counter<3):
-        oppo_choice=oppo[randint(0,2)]
-        if(user_choice=='rock' and oppo_choice=='scissors') or (user_choice=='paper' and oppo_choice=='rock') or (user_choice=='scissors' and oppo_choice=='papír'):
-            turn_result.configure(text="You win!")
-            user_win+=1
-        elif(user_choice==oppo_choice):
-            turn_result.configure(text="It's a draw.")
-        else:
-            turn_result.configure(text="You lost!")
-            oppo_win+=1
-        turn_counter+=1
-        title_label2.configure(text=turn_counter)
+    oppo = ['rock', 'paper', 'scissors']
+    oppo_choice=oppo[randint(0,2)]
+    if(user_choice=='rock' and oppo_choice=='scissors') or (user_choice=='paper' and oppo_choice=='rock') or (user_choice=='scissors' and oppo_choice=='paper'):
+        turn_result.configure(text="""You win!""")
+    elif(user_choice==oppo_choice):
+        turn_result.configure(text="""It's a draw.""")
     else:
-        results()
-        
-#results section
-def results():
-    if(user_win>oppo_win):
-        result.configure(text="You win!")
-    elif(oppo_win>user_win):
-        result.configure(text="You lost!")
+        turn_result.configure(text="""You're defeated!""")
+
 
 #main program
 main_window = Tk()
 main_window.title("Rock-Paper-Scissors - Bence László - www.bencelaszlo.cf")
-title_label1 = Label(main_window, text="Turn")
-title_label2 = Label(main_window, text=turn_counter)
-rock_button = Button(main_window, text="ROCK!", command="user_choice_rock")
-paper_button = Button(main_window, text="PAPER!", command="user_choice_paper")
-scissors_button = Button(main_window, text="SCISSORS!", command="user_choice_scissors")
-turn_result = Label(main_window)
-result = Label(main_window)
+rock_button = Button(main_window, width=20, text="ROCK!", justify=CENTER, command=user_choice_rock, activebackground='black', activeforeground='white')
+paper_button = Button(main_window, width=20, text="PAPER!", justify=CENTER, command=user_choice_paper, activebackground='black', activeforeground='white')
+scissors_button = Button(main_window, width=20, text="SCISSORS!", justify=CENTER, command=user_choice_scissors, activebackground='black', activeforeground='white')
+turn_result = Label(main_window, width=20, justify=CENTER)
+win_text = Label(main_window, width=20, text='WINS', justify=CENTER, bg='black', fg='white')
+win_results = Label(main_window, width=20)
+draw_text = Label(main_window, width=20, text="DRAWS", justify=CENTER, bg='black', fg='white')
+draw_results = Label(main_window, width=20)
+defeat_text = Label(main_window, width=20, text="DEFEATS", justify=CENTER, bg='black', fg='white')
+defeat_results = Label(main_window, width=20)
 
 #create grid
-title_label1.grid(row=1, column=1)
-title_label2.grid(row=1, column=2)
 rock_button.grid(row=2, column=1)
 paper_button.grid(row=2, column=2)
 scissors_button.grid(row=2, column=3)
-turn_result.grid(row=3, column=1)
-result.grid(row=4, column=1)
+turn_result.grid(row=3, column=2)
+win_text.grid(row=4, column=1)
+win_results.grid(row=5, column=1)
+draw_text.grid(row=4, column=2)
+draw_results.grid(row=5, column=2)
+defeat_text.grid(row=4, column=3)
+defeat_results.grid(row=5, column=3)
 
 #mainloop
 main_window.mainloop()
